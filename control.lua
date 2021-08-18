@@ -6,6 +6,7 @@ local attack_area = defines.command.attack_area
 local compound = defines.command.compound
 local logical_or = defines.compound_command.logical_or
 local max_deaths = 25
+local unitReductionFactor = settings.startup["unit-reduction-factor"].value
 
 script.on_init(
     function()
@@ -94,8 +95,8 @@ function setup()
                     setupTable,
                     {
                         name = unit.name,
-                        max_health = unit.max_health,
-                        damage = damage,
+                        max_health = unit.max_health * unitReductionFactor,
+                        damage = damage * unitReductionFactor,
                         damage_type = type,
                         category = cat
                     }
@@ -187,7 +188,7 @@ function queueEnemiesOnDeath(deadUnit, cause)
                     adjustmentFactor = 1
                 end
                 --100% adjustment means no spawns
-                numberOfSpawns = numberOfSpawns - (numberOfSpawns * adjustmentFactor)
+                numberOfSpawns = numberOfSpawns - (numberOfSpawns * adjustmentFactor * (1 / unitReductionFactor))
             end
 
             if numberOfSpawns > 0 then

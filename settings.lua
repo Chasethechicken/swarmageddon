@@ -23,6 +23,12 @@ data:extend(
 			name = "enable-mitigation",
 			setting_type = "startup",
 			default_value = true
+		},
+		{
+			type = "int-setting",
+			name = "unit-reduction-factor",
+			setting_type = "startup",
+			default_value = 1
 		}
 	}
 )
